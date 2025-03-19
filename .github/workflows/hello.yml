@@ -10,7 +10,9 @@ jobs:
         run: echo "Hello World"
       - run: curl -O https://jit-cli.s3.us-east-1.amazonaws.com/jit-cli/sc-29437-test-our-solution-on-various-machines/jit-cli-amd64-slim
       - run: chmod +x jit-cli-amd64-slim
-      - run: export JIT_CLIENT_ID=${{ secrets.JIT_CLIENT_ID }}
-      - run: export JIT_SECRET_KEY=${{ secrets.JIT_SECRET_KEY }}
-      - run: export ENV_NAME=bandit
-      - run: ./jit-cli-amd64-slim container --image python:3.10-alpine3.16
+      - name: Run CLI with env vars
+        env:
+          JIT_CLIENT_ID: ${{ secrets.JIT_CLIENT_ID }}
+          JIT_SECRET_KEY: ${{ secrets.JIT_SECRET_KEY }}
+          ENV_NAME: bandit
+        run: ./jit-cli-amd64-slim container --image python:3.10-alpine3.16
