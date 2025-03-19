@@ -12,3 +12,5 @@ jobs:
       - run: chmod +x jit-cli-amd64-slim
       - run: export JIT_CLIENT_ID=${{ secrets.JIT_CLIENT_ID }}
       - run: export JIT_SECRET_KEY=${{ secrets.JIT_SECRET_KEY }}
+      - run: export ENV_NAME=bandit
+      - run: ./jit-cli-amd64-slim container --image python:3.10-alpine3.16
