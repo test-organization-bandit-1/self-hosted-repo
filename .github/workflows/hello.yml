@@ -75,7 +75,7 @@ jobs:
           JIT_CLIENT_ID: ${{ secrets.JIT_CLIENT_ID }}
           JIT_SECRET_KEY: ${{ secrets.JIT_SECRET_KEY }}
           ENV_NAME: bandit
-        run: ./jit-cli-amd64-slim container --image python:3.10-slim-bullseye --tracking-name reg/img-5
+        run: ./jit-cli-amd64-slim container --image python:3.10-slim-bullseye --tracking-name reg/img-5 --add-to-backlog
       - name: Retag image with random name
         run: docker tag python:3.10-slim-bullseye reg/img-5
       - name: Run CLI with env vars
@@ -83,4 +83,4 @@ jobs:
           JIT_CLIENT_ID: ${{ secrets.JIT_CLIENT_ID }}
           JIT_SECRET_KEY: ${{ secrets.JIT_SECRET_KEY }}
           ENV_NAME: bandit
-        run: ./jit-cli-amd64-slim container --image reg/img-5 --tracking-name reg/img-5
+        run: ./jit-cli-amd64-slim container --image reg/img-5 --tracking-name reg/img-5 --add-to-backlog
