@@ -43,4 +43,4 @@ jobs:
           JIT_CLIENT_ID: ${{ secrets.JIT_CLIENT_ID }}
           JIT_SECRET_KEY: ${{ secrets.JIT_SECRET_KEY }}
           ENV_NAME: bandit
-        run: ./jit-cli-amd64-slim container --image archive://image.tar --tracking-name ohav-registry/ohav-image-github-hosted-runner
+        run: ./jit-cli-amd64-slim container --image image.tar --tracking-name ohav-registry/ohav-image-github-hosted-runner
