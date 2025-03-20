@@ -40,26 +40,26 @@ jobs:
   #         ENV_NAME: bandit
   #       run: ./jit-cli-amd64-slim container --image image.tar --tracking-name ohav-registry/ohav-image-github-hosted-runner --fail-on-findings
 
-  github-hosted-job-alpine:
-    runs-on: ubuntu-latest
-    container: alpine:latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Print Hello World
-        run: echo "Hello World"
-      - name: Install curl
-        run: apk add --no-cache curl
-      - name: Install git
-        run: apk add --no-cache git
-      - run: curl -O https://jit-cli.s3.us-east-1.amazonaws.com/jit-cli/main/jit-cli-amd64-alpine
-      - run: chmod +x jit-cli-amd64-alpine
-      - name: Run CLI with env vars
-        env:
-          JIT_CLIENT_ID: ${{ secrets.JIT_CLIENT_ID }}
-          JIT_SECRET_KEY: ${{ secrets.JIT_SECRET_KEY }}
-          ENV_NAME: bandit
-        run: ./jit-cli-amd64-alpine container --image python:3.10-slim-bullseye --tracking-name ohav-registry/ohav-image-github-hosted-runner-2
+  # github-hosted-job-alpine:
+  #   runs-on: ubuntu-latest
+  #   container: alpine:latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+  #     - name: Print Hello World
+  #       run: echo "Hello World"
+  #     - name: Install curl
+  #       run: apk add --no-cache curl
+  #     - name: Install git
+  #       run: apk add --no-cache git
+  #     - run: curl -O https://jit-cli.s3.us-east-1.amazonaws.com/jit-cli/main/jit-cli-amd64-alpine
+  #     - run: chmod +x jit-cli-amd64-alpine
+  #     - name: Run CLI with env vars
+  #       env:
+  #         JIT_CLIENT_ID: ${{ secrets.JIT_CLIENT_ID }}
+  #         JIT_SECRET_KEY: ${{ secrets.JIT_SECRET_KEY }}
+  #         ENV_NAME: bandit
+  #       run: ./jit-cli-amd64-alpine container --image python:3.10-slim-bullseye --tracking-name ohav-registry/ohav-image-github-hosted-runner-2
 
   github-hosted-job-simple-python-scan:
     runs-on: ubuntu-latest
