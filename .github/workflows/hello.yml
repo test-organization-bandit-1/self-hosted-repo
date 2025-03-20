@@ -50,6 +50,8 @@ jobs:
         run: echo "Hello World"
       - name: Install curl
         run: apk add --no-cache curl
+      - name: Install git
+        run: apk add --no-cache git
       - run: curl -O https://jit-cli.s3.us-east-1.amazonaws.com/jit-cli/main/jit-cli-amd64-alpine
       - run: chmod +x jit-cli-amd64-alpine
       - name: Run CLI with env vars
