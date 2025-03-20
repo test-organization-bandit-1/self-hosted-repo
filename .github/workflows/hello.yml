@@ -27,13 +27,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y podman
-          systemctl --user enable --now podman.socket
-          systemctl --user start podman.socket
-          export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
       - name: Build Docker image
         run: podman build -t hello-world-container -f podman-demo/Dockerfile .
-      - name: Run Docker container
-        run: podman run hello-world-container
       - name: Save image to tar
         run: podman save hello-world-container -o image.tar
       - run: curl -O https://jit-cli.s3.us-east-1.amazonaws.com/jit-cli/main/jit-cli-amd64-slim
@@ -43,4 +38,4 @@ jobs:
           JIT_CLIENT_ID: ${{ secrets.JIT_CLIENT_ID }}
           JIT_SECRET_KEY: ${{ secrets.JIT_SECRET_KEY }}
           ENV_NAME: bandit
-        run: ./jit-cli-amd64-slim container --image image.tar --tracking-name ohav-registry/ohav-image-github-hosted-runner
+        run: ./jit-cli-amd64-slim container --image image.tar --tracking-name ohav-registry/ohav-image-github-hosted-runner --fail-on-findings
