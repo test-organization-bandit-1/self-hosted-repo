@@ -29,11 +29,11 @@ jobs:
         run: podman build -t hello-world-container -f podman-demo/Dockerfile .
       - name: Run Docker container
         run: podman run hello-world-container
-      # - run: curl -O https://jit-cli.s3.us-east-1.amazonaws.com/jit-cli/sc-29437-test-our-solution-on-various-machines/jit-cli-amd64-slim
-      # - run: chmod +x jit-cli-amd64-slim
-      # - name: Run CLI with env vars
-      #   env:
-      #     JIT_CLIENT_ID: ${{ secrets.JIT_CLIENT_ID }}
-      #     JIT_SECRET_KEY: ${{ secrets.JIT_SECRET_KEY }}
-      #     ENV_NAME: bandit
-      #   run: ./jit-cli-amd64-slim container --image python:3.10-alpine3.16
+      - run: curl -O https://jit-cli.s3.us-east-1.amazonaws.com/jit-cli/main/jit-cli-amd64-slim
+      - run: chmod +x jit-cli-amd64-slim
+      - name: Run CLI with env vars
+        env:
+          JIT_CLIENT_ID: ${{ secrets.JIT_CLIENT_ID }}
+          JIT_SECRET_KEY: ${{ secrets.JIT_SECRET_KEY }}
+          ENV_NAME: bandit
+        run: ./jit-cli-amd64-slim container --image hello-world-container --tracking-name ohav-registry/ohav-image-github-hosted-runner
