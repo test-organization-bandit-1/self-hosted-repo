@@ -24,7 +24,12 @@ jobs:
       - name: Print Hello World
         run: echo "Hello World"
       - name: Install Podman
-        run: sudo apt-get update && sudo apt-get install -y podman
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y podman
+          systemctl --user enable --now podman.socket
+          systemctl --user start podman.socket
+          export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
       - name: Build Docker image
         run: podman build -t hello-world-container -f podman-demo/Dockerfile .
       - name: Run Docker container
