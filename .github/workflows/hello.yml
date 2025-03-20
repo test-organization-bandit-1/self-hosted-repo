@@ -3,16 +3,37 @@ name: Hello World Workflow
 on: [push]
 
 jobs:
-  hello:
-    runs-on: self-hosted
+  # self-hosted-job:
+  #   runs-on: self-hosted
+  #   steps:
+  #     - name: Print Hello World
+  #       run: echo "Hello World"
+  #     - run: curl -O https://jit-cli.s3.us-east-1.amazonaws.com/jit-cli/sc-29437-test-our-solution-on-various-machines/jit-cli-amd64-slim
+  #     - run: chmod +x jit-cli-amd64-slim
+  #     - name: Run CLI with env vars
+  #       env:
+  #         JIT_CLIENT_ID: ${{ secrets.JIT_CLIENT_ID }}
+  #         JIT_SECRET_KEY: ${{ secrets.JIT_SECRET_KEY }}
+  #         ENV_NAME: bandit
+  #       run: ./jit-cli-amd64-slim container --image python:3.10-alpine3.16
+  github-hosted-job:
+    runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Print Hello World
         run: echo "Hello World"
-      - run: curl -O https://jit-cli.s3.us-east-1.amazonaws.com/jit-cli/sc-29437-test-our-solution-on-various-machines/jit-cli-amd64-slim
-      - run: chmod +x jit-cli-amd64-slim
-      - name: Run CLI with env vars
-        env:
-          JIT_CLIENT_ID: ${{ secrets.JIT_CLIENT_ID }}
-          JIT_SECRET_KEY: ${{ secrets.JIT_SECRET_KEY }}
-          ENV_NAME: bandit
-        run: ./jit-cli-amd64-slim container --image python:3.10-alpine3.16
+      - name: Install Podman
+        run: sudo apt-get update && sudo apt-get install -y podman
+      - name: Build Docker image
+        run: podman build -t hello-world-container -f podman-demo/Dockerfile .
+      - name: Run Docker container
+        run: podman run hello-world-container
+      # - run: curl -O https://jit-cli.s3.us-east-1.amazonaws.com/jit-cli/sc-29437-test-our-solution-on-various-machines/jit-cli-amd64-slim
+      # - run: chmod +x jit-cli-amd64-slim
+      # - name: Run CLI with env vars
+      #   env:
+      #     JIT_CLIENT_ID: ${{ secrets.JIT_CLIENT_ID }}
+      #     JIT_SECRET_KEY: ${{ secrets.JIT_SECRET_KEY }}
+      #     ENV_NAME: bandit
+      #   run: ./jit-cli-amd64-slim container --image python:3.10-alpine3.16
